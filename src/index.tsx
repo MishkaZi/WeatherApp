@@ -3,13 +3,17 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Favourites from './components/Favourites/Favourites';
 import Main from './components/Main/Main';
+import { Provider } from 'react-redux';
+import { store } from './store';
 
 ReactDOM.render(
-  <BrowserRouter>
-    <Routes>
-      <Route path='/' element={<Main />} />
-      <Route path='/favourites' element={<Favourites />} />
-    </Routes>
-  </BrowserRouter>,
+  <Provider store={store}>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<Main />} />
+        <Route path='/favourites' element={<Favourites />} />
+      </Routes>
+    </BrowserRouter>
+  </Provider>,
   document.getElementById('root')
 );

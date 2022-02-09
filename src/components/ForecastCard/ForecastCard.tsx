@@ -1,12 +1,35 @@
 import React from 'react';
 import './ForecastCard.css';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
 
 const ForecastCard = ({ forecast }) => {
+  const tempUnit = useSelector((state: RootState) => state.tempUnit.unit);
+  const weekday = [
+    'Sunday',
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+  ];
+  const d = new Date(Date.parse(forecast.day));
+  const day = weekday[d.getDay()];
+
   return (
     <div className='forecast-card'>
-      <h5> {forecast.day} </h5>
-      <p>Min temp: {forecast.minTemp}</p>
-      <p>Max temp: {forecast.maxTemp}</p>
+      <h5> {day} </h5>
+      <p>
+        {tempUnit === 'F'
+          ? forecast.minTemp
+          : Math.floor(((forecast.minTemp - 32) * 5) / 9)}
+        {tempUnit === 'F' ? ' F' : ' C'} -{' '}
+        {tempUnit === 'F'
+          ? forecast.minTemp
+          : Math.ceil(((forecast.maxTemp - 32) * 5) / 9)}
+        {tempUnit === 'F' ? ' F' : ' C'}
+      </p>
       <p>Night: {forecast.weatherNight}</p>
       <p>Day: {forecast.weatherDay}</p>
     </div>
