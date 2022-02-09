@@ -50,25 +50,28 @@ const Main = () => {
   }, []);
 
   return (
-    <div className='main-page'>
+    <>
       <Header />
-      <div className='search'>
-        <input
-          type='text'
-          placeholder='Search'
-          value={search}
-          onChange={handleSearch}
-        />
+      <div className='main-page'>
+        <div className='search'>
+          <input
+            type='text'
+            placeholder='Search'
+            value={search}
+            onChange={handleSearch}
+          />
+        </div>
+
+        <div className='city-weather'>
+          <h2 style={{ width: '100%' }}>{city}</h2>
+          <h3 style={{ width: '100%' }}>{text}</h3>
+          <h4 style={{ width: '100%' }}>Five day forecast:</h4>
+          {forecasts.map((forecast: ForecastModel) => (
+            <ForecastCard key={forecast.day} forecast={forecast} />
+          ))}
+        </div>
       </div>
-      <h2>{city}</h2>
-      <h3>{text}</h3>
-      <div className='city-weather'>
-        <h4 style={{ width: '100%' }}>Five day forecast:</h4>
-        {forecasts.map((forecast: ForecastModel) => (
-          <ForecastCard key={forecast.day} forecast={forecast} />
-        ))}
-      </div>
-    </div>
+    </>
   );
 };
 

@@ -21,9 +21,15 @@ const Header = () => {
     <div className='header'>
       Weather App
       <div className='buttons'>
-        <button onClick={changeUnit}>C/F</button>
-        <Link to='/'>Home</Link>
-        <Link to='/favourites'>Favourites</Link>
+        <button type='button' onClick={changeUnit}>
+          C/F
+        </button>
+        <Link to='/'>
+          <button type='button'>Home</button>
+        </Link>
+        <Link to='/favourites'>
+          <button type='button'>Favourites</button>
+        </Link>
       </div>
     </div>
   );

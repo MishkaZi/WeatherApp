@@ -2,4 +2,21 @@
   margin: 5rem 5rem 0 5rem;
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
+
+  background-color: #ffff;
+  border-radius: 5%;
+  padding: 1rem;
+  -moz-box-shadow: 1px 1px 10px #000000;
+  -webkit-box-shadow: 1px 1px 10px #000000;
+  box-shadow: 1px 1px 10px #000000;
+}
+
+.search {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+body {
+  background-color: #d0e3f9;
 }

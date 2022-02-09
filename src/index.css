@@ -1,9 +1,8 @@
 .App {
   display: grid;
+  margin: 0;
 }
 
-Header {
-}
-
-Main {
+body {
+  margin: 0;
 }
