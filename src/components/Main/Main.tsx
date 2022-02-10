@@ -63,7 +63,10 @@ const Main = () => {
         </div>
 
         <div className='city-weather'>
-          <h2 style={{ width: '100%' }}>{city}</h2>
+          <h2 style={{ width: '100%' }}>
+            {city}
+            <i className='fa-thin fa-bookmark'></i>
+          </h2>
           <h3 style={{ width: '100%' }}>{text}</h3>
           <h4 style={{ width: '100%' }}>Five day forecast:</h4>
           {forecasts.map((forecast: ForecastModel) => (

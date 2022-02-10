@@ -5,6 +5,10 @@ import { useDispatch } from 'react-redux';
 import { changeUnitAction } from '../../actions';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
+import { AiFillHome } from 'react-icons/ai';
+import { BsFillBookmarkHeartFill } from 'react-icons/bs';
+import { RiCelsiusFill } from 'react-icons/ri';
+import { RiFahrenheitFill } from 'react-icons/ri';
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -19,16 +23,25 @@ const Header = () => {
   };
   return (
     <div className='header'>
-      Weather App
+      <h3 style={{ marginLeft: '1rem' }}> Weather App</h3>
       <div className='buttons'>
         <button type='button' onClick={changeUnit}>
-          C/F
+          {tempUnit === 'C' ? (
+            <RiCelsiusFill size='1.5rem' color='cornFlowerBlue' />
+          ) : (
+            <RiFahrenheitFill size='1.5rem' color='cornFlowerBlue' />
+          )}
         </button>
         <Link to='/'>
-          <button type='button'>Home</button>
+          <button type='button'>
+            <AiFillHome size='2rem' color='cornFlowerBlue' />
+          </button>
         </Link>
         <Link to='/favourites'>
-          <button type='button'>Favourites</button>
+          <button type='button'>
+            {' '}
+            <BsFillBookmarkHeartFill size='2rem' color='cornFlowerBlue' />
+          </button>
         </Link>
       </div>
     </div>

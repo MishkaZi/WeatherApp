@@ -19,14 +19,14 @@ const ForecastCard = ({ forecast }) => {
 
   return (
     <div className='forecast-card'>
-      <h5> {day} </h5>
+      <h3> {day} </h3>
       <p>
         {tempUnit === 'F'
           ? forecast.minTemp
           : Math.floor(((forecast.minTemp - 32) * 5) / 9)}
         {tempUnit === 'F' ? ' F' : ' C'} -{' '}
         {tempUnit === 'F'
-          ? forecast.minTemp
+          ? forecast.maxTemp
           : Math.ceil(((forecast.maxTemp - 32) * 5) / 9)}
         {tempUnit === 'F' ? ' F' : ' C'}
       </p>
