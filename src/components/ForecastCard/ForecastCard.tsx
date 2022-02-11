@@ -24,11 +24,11 @@ const ForecastCard = ({ forecast }) => {
         {tempUnit === 'F'
           ? forecast.minTemp
           : Math.floor(((forecast.minTemp - 32) * 5) / 9)}
-        {tempUnit === 'F' ? ' F' : ' C'} -{' '}
+        {tempUnit === 'F' ? ' F' : ' °C'} -{' '}
         {tempUnit === 'F'
           ? forecast.maxTemp
           : Math.ceil(((forecast.maxTemp - 32) * 5) / 9)}
-        {tempUnit === 'F' ? ' F' : ' C'}
+        {tempUnit === 'F' ? ' F' : ' °C'}
       </p>
       <p>Night: {forecast.weatherNight}</p>
       <p>Day: {forecast.weatherDay}</p>

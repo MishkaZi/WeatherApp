@@ -20,3 +20,10 @@
 body {
   background-color: #d0e3f9;
 }
+
+.upper-main {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}

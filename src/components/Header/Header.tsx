@@ -1,9 +1,8 @@
 import React from 'react';
 import './Header.css';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { changeUnitAction } from '../../actions';
-import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import { AiFillHome } from 'react-icons/ai';
 import { BsFillBookmarkHeartFill } from 'react-icons/bs';
@@ -20,7 +19,9 @@ const Header = () => {
     } else {
       dispatch(changeUnitAction('C'));
     }
+    localStorage.setItem('tempUnit', tempUnit);
   };
+
   return (
     <div className='header'>
       <h3 style={{ marginLeft: '1rem' }}> Weather App</h3>
