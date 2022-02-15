@@ -27,15 +27,17 @@ const Main = () => {
     const target = e.target as HTMLInputElement;
 
     setSearch(target.value);
+
     const { data: autocompleteData } = await axios.get(
-      `http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=${process.env.REACT_APP_ACCUWEATHER_API}&q=${search}`
+      `http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=${process.env.REACT_APP_ACCUWEATHER_API}&q=${target.value}`
     );
     setAutocompleteSearch(autocompleteData);
   };
 
   const handleOnClickSearch = async (e) => {
-    var index = e.nativeEvent.target.selectedIndex;
-    const cityName = e.nativeEvent.target[index].text;
+    setAutocompleteSearch([]);
+    setSearch('');
+    const cityName = e.target.innerHTML;
 
     const cityKey = e.target.value;
     setCity(cityKey);
@@ -81,36 +83,8 @@ const Main = () => {
     }
   };
 
-  const getSearchCityWeather = async (cityKey: Number) => {
-    // const { data: currentData } = await axios.get(
-    //   `http://dataservice.accuweather.com/currentconditions/v1/${cityKey}?apikey=${process.env.REACT_APP_ACCUWEATHER_API}`
-    // );
-    // console.log(currentData);
-    // setCityTemp(currentData.Temperature);
-    // const { data: cityData } = await axios.get(
-    //   `http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=${process.env.REACT_APP_ACCUWEATHER_API}&q=tel%20aviv`
-    // );
-    // console.log(cityData);
-    // setCity(cityData[0].LocalizedName);
-    // const { data: forecastsData } = await axios.get(
-    //   `http://dataservice.accuweather.com/forecasts/v1/daily/5day/${cityKey}?apikey=${process.env.REACT_APP_ACCUWEATHER_API}`
-    // );
-    // setText(forecastsData.Headline.Text);
-    // let tempForecasts = [];
-    // forecastsData.DailyForecasts.forEach((forecast: any) => {
-    //   tempForecasts.push({
-    //     day: forecast.Date.slice(0, 10),
-    //     minTemp: forecast.Temperature.Minimum.Value,
-    //     maxTemp: forecast.Temperature.Maximum.Value,
-    //     weatherDay: forecast.Day.IconPhrase,
-    //     weatherNight: forecast.Night.IconPhrase,
-    //   });
-    // });
-    // setForecasts(tempForecasts);
-  };
-
   useEffect(() => {
-    // getSearchCityWeather(215854);
+    //your location fetch
   }, []);
 
   return (
@@ -126,14 +100,19 @@ const Main = () => {
               handleOnChangeSearch(e);
             }}
           />
-          <select onChange={handleOnClickSearch}>
+          <div className='dropdown'>
             {autocompleteSearch.length !== 0 &&
               autocompleteSearch?.map((city: any) => (
-                <option key={city.Key} value={city.Key}>
+                <button
+                  onClick={handleOnClickSearch}
+                  className='dropdown-item'
+                  key={city.Key}
+                  value={city.Key}
+                >
                   {`${city.LocalizedName}, ${city.Country.LocalizedName}`}
-                </option>
+                </button>
               ))}
-          </select>
+          </div>
         </div>
 
         <div className='city-weather'>
