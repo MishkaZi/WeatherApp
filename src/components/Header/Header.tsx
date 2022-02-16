@@ -1,9 +1,8 @@
 import React from 'react';
 import './Header.css';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { changeUnitAction } from '../../actions';
-import { RootState } from '../../store';
 import { AiFillHome } from 'react-icons/ai';
 import { BsFillBookmarkHeartFill } from 'react-icons/bs';
 import { RiCelsiusFill } from 'react-icons/ri';
@@ -11,15 +10,16 @@ import { RiFahrenheitFill } from 'react-icons/ri';
 
 const Header = () => {
   const dispatch = useDispatch();
-  const tempUnit = useSelector((state: RootState) => state.tempUnit.unit);
+  const tempUnit = localStorage.getItem('tempUnit');
 
   const changeUnit = () => {
     if (tempUnit === 'C') {
       dispatch(changeUnitAction('F'));
+      localStorage.setItem('tempUnit', 'F');
     } else {
       dispatch(changeUnitAction('C'));
+      localStorage.setItem('tempUnit', 'C');
     }
-    localStorage.setItem('tempUnit', tempUnit);
   };
 
   return (
