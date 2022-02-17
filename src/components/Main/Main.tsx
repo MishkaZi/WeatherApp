@@ -6,7 +6,7 @@ import ForecastModel from '../../Models/ForecastModel';
 import Header from '../Header/Header';
 import { FaRegBookmark } from 'react-icons/fa';
 import { FaBookmark } from 'react-icons/fa';
-import { addBookmarkAction } from '../../actions';
+import { addBookmarkAction, removeBookmarkAction } from '../../actions';
 import { useDispatch, useSelector } from 'react-redux';
 import BookmarksModel from '../../Models/BookmarksModel';
 import { RootState } from '../../store';
@@ -15,19 +15,24 @@ import useGeolocation from '../../useGeolocation';
 const Main = () => {
   const dispatch = useDispatch();
   const tempUnit = useSelector((state: RootState) => state.tempUnit.unit);
+  const bookmarks = useSelector(
+    (state: RootState) => state.bookmarks.bookmarks
+  );
   const [autocompleteSearch, setAutocompleteSearch] = useState([]);
   const [forecasts, setForecasts] = useState([]);
 
-  const [city, setCity] = useState('215854');
+  const [city, setCity] = useState('');
   const [cityName, setCityName] = useState('');
   const [cityTemp, setCityTemp] = useState(0);
-  const [text, setText] = useState('');
+  const [currentText, setCurrentText] = useState('');
+  const [forecastsText, setForecastsText] = useState('');
 
   const [search, setSearch] = useState('');
   const [isBookmarked, setIsBookmarked] = useState(false);
 
   const location = useGeolocation();
-  if (location.loaded) {
+
+  if (location.loaded && location.coordinates !== undefined) {
     localStorage.setItem('alt', location.coordinates.lat);
     localStorage.setItem('lng', location.coordinates.lng);
   }
@@ -44,22 +49,24 @@ const Main = () => {
     setAutocompleteSearch(autocompleteData);
   };
 
-  const handleOnClickSearch = async (cityKey) => {
+  const handleCityChoise = async (cityKey: string) => {
     setAutocompleteSearch([]);
     setSearch('');
+    setIsBookmarked(false);
+    setCity(cityKey);
 
     const { data: currentData } = await axios.get(
       `/currentconditions/v1/${cityKey}?apikey=${process.env.REACT_APP_ACCUWEATHER_API}`
     );
 
-    setText(currentData[0].WeatherText);
+    setCurrentText(currentData[0].WeatherText);
     setCityTemp(currentData[0].Temperature.Imperial.Value);
 
     const { data: forecastsData } = await axios.get(
       `/forecasts/v1/daily/5day/${cityKey}?apikey=${process.env.REACT_APP_ACCUWEATHER_API}`
     );
 
-    setText(forecastsData.Headline.Text);
+    setForecastsText(forecastsData.Headline.Text);
 
     let tempForecasts = [];
     forecastsData.DailyForecasts.forEach((forecast: any) => {
@@ -72,6 +79,7 @@ const Main = () => {
       });
     });
     setForecasts(tempForecasts);
+    checkIfBookmarked(cityKey);
   };
 
   const bookmark = () => {
@@ -79,21 +87,21 @@ const Main = () => {
       key: city,
       city: cityName,
       temp: cityTemp,
-      text: text,
+      text: currentText,
     };
-    console.log(bookmark);
 
     if (isBookmarked === false) {
       dispatch(addBookmarkAction(bookmark));
       setIsBookmarked(true);
     } else {
+      dispatch(removeBookmarkAction(bookmark));
       setIsBookmarked(false);
     }
   };
 
   const getLocationByGeo = async () => {
     setCityName('Tel Aviv');
-    handleOnClickSearch('215854');
+    handleCityChoise('215854');
 
     if (localStorage.getItem('lng')) {
       const { data } = await axios.get(
@@ -102,12 +110,23 @@ const Main = () => {
         }&q=${localStorage.getItem('alt')},${localStorage.getItem('lng')}`
       );
       setCityName(data.LocalizedName);
-      handleOnClickSearch(data.Key);
+
+      handleCityChoise(data.Key);
+      checkIfBookmarked(data.Key);
+    }
+  };
+
+  const checkIfBookmarked = (key: string) => {
+    if (bookmarks.some((bm) => bm.key === key)) {
+      setIsBookmarked(true);
+    } else {
+      setIsBookmarked(false);
     }
   };
 
   useEffect(() => {
     getLocationByGeo();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -135,7 +154,7 @@ const Main = () => {
                 <button
                   onClick={(e: any) => {
                     setCityName(e.target.innerHTML);
-                    handleOnClickSearch(e.target.value);
+                    handleCityChoise(e.target.value);
                   }}
                   className='dropdown-item'
                   key={city.Key}
@@ -146,9 +165,6 @@ const Main = () => {
               ))}
           </div>
         </div>
-        {/* {location.loaded
-          ? JSON.stringify(location)
-          : 'Location not available yet!'} */}
 
         <div className='city-weather'>
           <h2 className='upper-main'>
@@ -158,6 +174,9 @@ const Main = () => {
                 ? cityTemp
                 : Math.floor(((cityTemp - 32) * 5) / 9)}
               {tempUnit === 'F' ? ' F' : ' °C'}
+              <h3 style={{ width: '100%', textAlign: 'center' }}>
+                {currentText}
+              </h3>
             </div>
             <button type='button' onClick={bookmark}>
               {isBookmarked === false ? (
@@ -167,7 +186,9 @@ const Main = () => {
               )}
             </button>
           </h2>
-          <h3 style={{ width: '100%', textAlign: 'center' }}>{text}</h3>
+          <h3 style={{ width: '100%', textAlign: 'center' }}>
+            {forecastsText}
+          </h3>
           {forecasts.map((forecast: ForecastModel) => (
             <ForecastCard key={forecast.day} forecast={forecast} />
           ))}

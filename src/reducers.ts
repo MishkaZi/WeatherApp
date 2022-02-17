@@ -26,7 +26,7 @@ export const bookmarksReducer = (state: BookmarksState = { bookmarks: [] }, acti
             return { ...state, bookmarks: action.payload }
         case 'ADD_BOOKMARK':
             return { ...state, bookmarks: action.payload }
-        case 'REMORE_BOOKMARK':
+        case 'REMOVE_BOOKMARK':
             return { ...state, bookmarks: action.payload }
         default:
             return state
