@@ -4,19 +4,29 @@ import BookmarksModel from '../../Models/BookmarksModel';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import { FaBookmark } from 'react-icons/fa';
-import { bookmarksAction, removeBookmarkAction } from '../../actions';
+import { BiDetail } from 'react-icons/bi';
+import { useNavigate } from 'react-router-dom';
+import {
+  bookmarksAction,
+  detailedForecastAction,
+  removeBookmarkAction,
+} from '../../actions';
 
 const BookmarkCard = (bookmark: BookmarksModel) => {
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const tempUnit = useSelector((state: RootState) => state.tempUnit.unit);
   const bookmarkName = bookmark.city.replace(' ', '').split(',');
 
   const removeFromBookmarks = () => {
-    console.log(bookmark);
-
     dispatch(removeBookmarkAction(bookmark));
     dispatch(bookmarksAction());
+  };
+
+  const openDetailedForecast = () => {
+    dispatch(detailedForecastAction(bookmark.id, bookmark.city));
+
+    navigate('/');
   };
 
   return (
@@ -32,7 +42,10 @@ const BookmarkCard = (bookmark: BookmarksModel) => {
       <p>{bookmark.text}</p>
       <div className='button'>
         <button type='button' onClick={removeFromBookmarks}>
-          <FaBookmark size='3rem' color='cornFlowerBlue' />
+          <FaBookmark size='2.5rem' color='cornFlowerBlue' />
+        </button>
+        <button type='button' onClick={openDetailedForecast}>
+          <BiDetail size='2.5rem' color='cornFlowerBlue' />
         </button>
       </div>
     </div>

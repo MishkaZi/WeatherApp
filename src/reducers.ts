@@ -1,4 +1,5 @@
-import { BookmarksAction, ChangeUnitAction } from './actions'
+import { BookmarksAction, ChangeUnitAction, DetailedForecastAction } from './actions'
+import { ADD_BOOKMARK, CHANGE_UNIT, DETAILED_FORECAST, GET_BOOKMARKS, REMOVE_BOOKMARK } from './Constants'
 import BookmarksModel from './Models/BookmarksModel'
 export interface TempUnitState {
     unit: string
@@ -7,7 +8,7 @@ export interface TempUnitState {
 
 export const tempUnitReducer = (state: TempUnitState = { unit: 'C' }, action: ChangeUnitAction) => {
     switch (action.type) {
-        case 'CHANGE_UNIT':
+        case CHANGE_UNIT:
             return { ...state, unit: action.payload }
 
         default:
@@ -22,12 +23,26 @@ export interface BookmarksState {
 
 export const bookmarksReducer = (state: BookmarksState = { bookmarks: [] }, action: BookmarksAction) => {
     switch (action.type) {
-        case 'GET_BOOKMARKS':
+        case GET_BOOKMARKS:
             return { ...state, bookmarks: action.payload }
-        case 'ADD_BOOKMARK':
+        case ADD_BOOKMARK:
             return { ...state, bookmarks: action.payload }
-        case 'REMOVE_BOOKMARK':
+        case REMOVE_BOOKMARK:
             return { ...state, bookmarks: action.payload }
+        default:
+            return state
+    }
+}
+
+
+export interface DetailedForecastState {
+    cityDetails: { cityId: string, city: string },
+}
+export const detailedForecastReducer = (state: DetailedForecastState = { cityDetails: { cityId: '', city: '' } }, action: DetailedForecastAction) => {
+    switch (action.type) {
+        case DETAILED_FORECAST:
+            return { ...state, cityDetails: action.payload }
+
         default:
             return state
     }

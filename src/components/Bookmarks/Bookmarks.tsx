@@ -11,7 +11,6 @@ const Bookmarks = () => {
   const bookmarks = useSelector(
     (state: RootState) => state.bookmarks.bookmarks
   );
-  console.log(bookmarks);
 
   useEffect(() => {
     dispatch(bookmarksAction());
@@ -20,17 +19,17 @@ const Bookmarks = () => {
   return (
     <>
       <Header />
-      <div className='bookmarks'>
-        {bookmarks.map((bm) => {
-          console.log(bm);
-
-          return (
+      {bookmarks.length > 0 ? (
+        <div className='bookmarks'>
+          {bookmarks.map((bm) => (
             <div key={bm.id}>
               <BookmarkCard {...bm} />
             </div>
-          );
-        })}
-      </div>
+          ))}
+        </div>
+      ) : (
+        <h2 style={{ textAlign: 'center' }}>There is no saved bookmarks</h2>
+      )}
     </>
   );
 };

@@ -15,6 +15,9 @@ import useGeolocation from '../../useGeolocation';
 const Main = () => {
   const dispatch = useDispatch();
   const tempUnit = useSelector((state: RootState) => state.tempUnit.unit);
+  const detailedForecast = useSelector(
+    (state: RootState) => state.detailedForecast.cityDetails
+  );
   const bookmarks = useSelector(
     (state: RootState) => state.bookmarks.bookmarks
   );
@@ -126,7 +129,12 @@ const Main = () => {
   };
 
   useEffect(() => {
-    getLocationByGeo();
+    if (!detailedForecast.cityId) {
+      getLocationByGeo();
+    } else {
+      setCityName(detailedForecast.city);
+      handleCityChoise(detailedForecast.cityId);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

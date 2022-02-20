@@ -1,10 +1,11 @@
 import { createStore, combineReducers } from 'redux';
-import { bookmarksReducer, tempUnitReducer } from './reducers';
+import { bookmarksReducer, detailedForecastReducer, tempUnitReducer } from './reducers';
 
 
 const allReducers = combineReducers({
     tempUnit: tempUnitReducer,
-    bookmarks: bookmarksReducer
+    bookmarks: bookmarksReducer,
+    detailedForecast: detailedForecastReducer
 });
 
 

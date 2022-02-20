@@ -1,10 +1,11 @@
 import BookmarksModel from "./Models/BookmarksModel"
+import { ADD_BOOKMARK, CHANGE_UNIT, DETAILED_FORECAST, GET_BOOKMARKS, REMOVE_BOOKMARK } from './Constants'
 
-export type ChangeUnitAction = { type: 'CHANGE_UNIT', payload: string }
+export type ChangeUnitAction = { type: string, payload: string }
 
 export const changeUnitAction = (unit: string): ChangeUnitAction => {
     return {
-        type: 'CHANGE_UNIT', payload: unit
+        type: CHANGE_UNIT, payload: unit
     }
 }
 
@@ -17,7 +18,7 @@ export const bookmarksAction = (): BookmarksAction => {
         localStorage.setItem("bookmarks", JSON.stringify([]));
     }
     return {
-        type: 'GET_BOOKMARKS', payload: bookmarks
+        type: GET_BOOKMARKS, payload: bookmarks
     }
 }
 
@@ -30,7 +31,7 @@ export const addBookmarkAction = (bookmark: BookmarksModel): BookmarksAction => 
     bookmarks.push(bookmark);
     localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
     return {
-        type: 'ADD_BOOKMARK', payload: bookmarks
+        type: ADD_BOOKMARK, payload: bookmarks
     }
 }
 
@@ -39,6 +40,14 @@ export const removeBookmarkAction = (bookmark: BookmarksModel): BookmarksAction 
     const filteredBookmarks = bookmarks.filter((bm: BookmarksModel) => !(bm.id === bookmark.id));
     localStorage.setItem("bookmarks", JSON.stringify(filteredBookmarks));
     return {
-        type: 'REMOVE_BOOKMARK', payload: bookmarks
+        type: REMOVE_BOOKMARK, payload: bookmarks
+    }
+}
+
+export type DetailedForecastAction = { type: string, payload: { cityId: string, city: string } }
+
+export const detailedForecastAction = (cityId: string, city: string): DetailedForecastAction => {
+    return {
+        type: DETAILED_FORECAST, payload: { cityId, city }
     }
 }
