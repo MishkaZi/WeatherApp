@@ -1,5 +1,5 @@
 export default interface BookmarksModel {
-    key: string
+    id: string
     city: string,
     temp: number,
     text: string

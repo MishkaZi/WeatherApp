@@ -1,0 +1,25 @@
+.bookmark-card {
+  width: 8rem;
+  min-width: 8rem;
+  height: 14rem;
+  min-height: 14rem;
+  padding: 0 1rem 1rem 1rem;
+  margin: 1rem;
+  margin-top: 5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 3em;
+  -moz-box-shadow: 1px 1px 10px #000000;
+  -webkit-box-shadow: 1px 1px 10px #000000;
+  box-shadow: 1px 1px 10px #000000;
+}
+
+.city-name {
+  text-align: center;
+}
+
+button {
+  margin-right: 0.9em;
+}

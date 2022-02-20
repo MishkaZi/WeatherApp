@@ -84,7 +84,7 @@ const Main = () => {
 
   const bookmark = () => {
     const bookmark: BookmarksModel = {
-      key: city,
+      id: city,
       city: cityName,
       temp: cityTemp,
       text: currentText,
@@ -100,7 +100,7 @@ const Main = () => {
   };
 
   const getLocationByGeo = async () => {
-    setCityName('Tel Aviv');
+    setCityName('Tel Aviv, Israel');
     handleCityChoise('215854');
 
     if (localStorage.getItem('lng')) {
@@ -109,7 +109,8 @@ const Main = () => {
           process.env.REACT_APP_ACCUWEATHER_API
         }&q=${localStorage.getItem('alt')},${localStorage.getItem('lng')}`
       );
-      setCityName(data.LocalizedName);
+
+      setCityName(`${data.LocalizedName}, ${data.Country.LocalizedName}`);
 
       handleCityChoise(data.Key);
       checkIfBookmarked(data.Key);
@@ -117,7 +118,7 @@ const Main = () => {
   };
 
   const checkIfBookmarked = (key: string) => {
-    if (bookmarks.some((bm) => bm.key === key)) {
+    if (bookmarks.some((bm) => bm.id === key)) {
       setIsBookmarked(true);
     } else {
       setIsBookmarked(false);

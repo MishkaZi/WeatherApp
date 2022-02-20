@@ -10,13 +10,15 @@ import { RiFahrenheitFill } from 'react-icons/ri';
 
 const Header = () => {
   const dispatch = useDispatch();
-  const tempUnit = localStorage.getItem('tempUnit');
+  let tempUnit = localStorage.getItem('tempUnit');
 
   const changeUnit = () => {
     if (tempUnit === 'C') {
+      tempUnit = 'F';
       dispatch(changeUnitAction('F'));
       localStorage.setItem('tempUnit', 'F');
     } else {
+      tempUnit = 'C';
       dispatch(changeUnitAction('C'));
       localStorage.setItem('tempUnit', 'C');
     }
@@ -38,7 +40,7 @@ const Header = () => {
             <AiFillHome size='2rem' color='cornFlowerBlue' />
           </button>
         </Link>
-        <Link to='/favourites'>
+        <Link to='/bookmarks'>
           <button type='button'>
             {' '}
             <BsFillBookmarkHeartFill size='2rem' color='cornFlowerBlue' />

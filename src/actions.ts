@@ -36,7 +36,7 @@ export const addBookmarkAction = (bookmark: BookmarksModel): BookmarksAction => 
 
 export const removeBookmarkAction = (bookmark: BookmarksModel): BookmarksAction => {
     let bookmarks = JSON.parse(localStorage.getItem("bookmarks"));
-    const filteredBookmarks = bookmarks.filter((bm: BookmarksModel) => !(bm.key === bookmark.key));
+    const filteredBookmarks = bookmarks.filter((bm: BookmarksModel) => !(bm.id === bookmark.id));
     localStorage.setItem("bookmarks", JSON.stringify(filteredBookmarks));
     return {
         type: 'REMOVE_BOOKMARK', payload: bookmarks
