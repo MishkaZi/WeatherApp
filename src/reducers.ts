@@ -1,11 +1,10 @@
-import { BookmarksAction, ChangeUnitAction, DetailedForecastAction } from './actions'
-import { ADD_BOOKMARK, CHANGE_UNIT, DETAILED_FORECAST, GET_BOOKMARKS, REMOVE_BOOKMARK } from './Constants'
+import { BookmarksAction, ChangeUnitAction, DetailedForecastAction, ThemeAction } from './actions'
+import { ADD_BOOKMARK, CHANGE_UNIT, DETAILED_FORECAST, GET_BOOKMARKS, REMOVE_BOOKMARK, THEME } from './Constants'
 import BookmarksModel from './Models/BookmarksModel'
+
 export interface TempUnitState {
     unit: string
 }
-
-
 export const tempUnitReducer = (state: TempUnitState = { unit: 'C' }, action: ChangeUnitAction) => {
     switch (action.type) {
         case CHANGE_UNIT:
@@ -19,8 +18,6 @@ export const tempUnitReducer = (state: TempUnitState = { unit: 'C' }, action: Ch
 export interface BookmarksState {
     bookmarks: BookmarksModel[]
 }
-
-
 export const bookmarksReducer = (state: BookmarksState = { bookmarks: [] }, action: BookmarksAction) => {
     switch (action.type) {
         case GET_BOOKMARKS:
@@ -34,7 +31,6 @@ export const bookmarksReducer = (state: BookmarksState = { bookmarks: [] }, acti
     }
 }
 
-
 export interface DetailedForecastState {
     cityDetails: { cityId: string, city: string },
 }
@@ -42,6 +38,19 @@ export const detailedForecastReducer = (state: DetailedForecastState = { cityDet
     switch (action.type) {
         case DETAILED_FORECAST:
             return { ...state, cityDetails: action.payload }
+
+        default:
+            return state
+    }
+}
+
+export interface ThemeState {
+    theme: string
+}
+export const themeReducer = (state: ThemeState = { theme: 'light' }, action: ThemeAction) => {
+    switch (action.type) {
+        case THEME:
+            return { ...state, theme: action.payload }
 
         default:
             return state

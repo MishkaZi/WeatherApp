@@ -3,7 +3,6 @@ import axios from 'axios';
 import './Main.css';
 import ForecastCard from '../ForecastCard/ForecastCard';
 import ForecastModel from '../../Models/ForecastModel';
-import Header from '../Header/Header';
 import { FaRegBookmark } from 'react-icons/fa';
 import { FaBookmark } from 'react-icons/fa';
 import { addBookmarkAction, removeBookmarkAction } from '../../actions';
@@ -14,6 +13,7 @@ import useGeolocation from '../../useGeolocation';
 
 const Main = () => {
   const dispatch = useDispatch();
+  const theme = useSelector((state: RootState) => state.theme.theme);
   const tempUnit = useSelector((state: RootState) => state.tempUnit.unit);
   const detailedForecast = useSelector(
     (state: RootState) => state.detailedForecast.cityDetails
@@ -140,9 +140,8 @@ const Main = () => {
 
   return (
     <>
-      <Header />
       <div className='main-page'>
-        <div className='search'>
+        <div className={`search-${theme}`}>
           <input
             type='text'
             placeholder='Type city name...'
@@ -175,7 +174,7 @@ const Main = () => {
           </div>
         </div>
 
-        <div className='city-weather'>
+        <div className={`city-weather-${theme}`}>
           <h2 className='upper-main'>
             <div className='current-city'>
               {cityName}{' '}

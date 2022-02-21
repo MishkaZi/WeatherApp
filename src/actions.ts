@@ -1,5 +1,5 @@
 import BookmarksModel from "./Models/BookmarksModel"
-import { ADD_BOOKMARK, CHANGE_UNIT, DETAILED_FORECAST, GET_BOOKMARKS, REMOVE_BOOKMARK } from './Constants'
+import { ADD_BOOKMARK, CHANGE_UNIT, DETAILED_FORECAST, GET_BOOKMARKS, REMOVE_BOOKMARK, THEME } from './Constants'
 
 export type ChangeUnitAction = { type: string, payload: string }
 
@@ -49,5 +49,13 @@ export type DetailedForecastAction = { type: string, payload: { cityId: string, 
 export const detailedForecastAction = (cityId: string, city: string): DetailedForecastAction => {
     return {
         type: DETAILED_FORECAST, payload: { cityId, city }
+    }
+}
+
+export type ThemeAction = { type: string, payload: string }
+
+export const themeAction = (theme: string): ThemeAction => {
+    return {
+        type: THEME, payload: theme
     }
 }

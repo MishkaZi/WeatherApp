@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { bookmarksAction } from '../../actions';
 import { RootState } from '../../store';
 import BookmarkCard from '../BookmarkCard/BookmarkCard';
-import Header from '../Header/Header';
 import './Bookmarks.css';
 
 const Bookmarks = () => {
@@ -18,7 +17,6 @@ const Bookmarks = () => {
 
   return (
     <>
-      <Header />
       {bookmarks.length > 0 ? (
         <div className='bookmarks'>
           {bookmarks.map((bm) => (

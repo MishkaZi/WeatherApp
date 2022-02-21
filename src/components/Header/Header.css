@@ -1,9 +1,22 @@
-.header {
+.header-light {
   color: #ffff;
   display: flex;
   justify-content: space-between;
   align-items: center;
   background-color: #496d96;
+  width: 100%;
+  height: 4rem;
+  -moz-box-shadow: 1px 1px 10px #000000;
+  -webkit-box-shadow: 1px 1px 10px #000000;
+  box-shadow: 1px 1px 10px #000000;
+}
+
+.header-dark {
+  color: #ffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #183454;
   width: 100%;
   height: 4rem;
   -moz-box-shadow: 1px 1px 10px #000000;

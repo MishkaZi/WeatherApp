@@ -1,0 +1,29 @@
+.body-light {
+  height: 100vh;
+  background-color: #d0e3f9;
+}
+
+.body-dark {
+  height: 100vh;
+  background-color: #0b4180;
+}
+
+@media only screen and (max-width: 688px) {
+  .body-light {
+    height: 130vh;
+  }
+
+  .body-dark {
+    height: 130vh;
+  }
+}
+
+@media only screen and (max-width: 495px) {
+  .body-light {
+    height: 180vh;
+  }
+
+  .body-dark {
+    height: 180vh;
+  }
+}
