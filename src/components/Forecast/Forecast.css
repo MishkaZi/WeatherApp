@@ -1,0 +1,34 @@
+.city-weather-light {
+  margin: 2rem 2rem 2rem 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  background-color: #ffff;
+  border-radius: 1em;
+  padding: 1rem;
+  -moz-box-shadow: 1px 1px 10px #000000;
+  -webkit-box-shadow: 1px 1px 10px #000000;
+  box-shadow: 1px 1px 10px #000000;
+}
+
+.city-weather-dark {
+  margin: 2rem 2rem 2rem 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  color: #d9dddc;
+  background-color: #2e5582;
+  border-radius: 1em;
+  padding: 1rem;
+  -moz-box-shadow: 1px 1px 10px #000000;
+  -webkit-box-shadow: 1px 1px 10px #000000;
+  box-shadow: 1px 1px 10px #000000;
+}
+
+.upper-main {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}

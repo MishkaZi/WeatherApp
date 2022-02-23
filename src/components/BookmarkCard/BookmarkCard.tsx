@@ -16,6 +16,7 @@ const BookmarkCard = (bookmark: BookmarksModel) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const tempUnit = useSelector((state: RootState) => state.tempUnit.unit);
+  const theme = useSelector((state: RootState) => state.theme.theme);
   const bookmarkName = bookmark.city.replace(' ', '').split(',');
 
   const removeFromBookmarks = () => {
@@ -30,7 +31,7 @@ const BookmarkCard = (bookmark: BookmarksModel) => {
   };
 
   return (
-    <div className='bookmark-card'>
+    <div className={`bookmark-card-${theme}`}>
       <div className='city-name'>
         <h3>{bookmarkName[0]}</h3>
         <h5>{bookmarkName[1]}</h5>

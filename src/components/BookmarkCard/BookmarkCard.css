@@ -1,4 +1,24 @@
-.bookmark-card {
+.bookmark-card-light {
+  width: 8rem;
+  min-width: 8rem;
+  height: 14rem;
+  min-height: 14rem;
+  padding: 0 1rem 1rem 1rem;
+  margin: 1rem;
+  margin-top: 5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 3em;
+  -moz-box-shadow: 1px 1px 10px #000000;
+  -webkit-box-shadow: 1px 1px 10px #000000;
+  box-shadow: 1px 1px 10px #000000;
+}
+
+.bookmark-card-dark {
+  color: #ffff;
+  background-color: #2e5581;
   width: 8rem;
   min-width: 8rem;
   height: 14rem;
