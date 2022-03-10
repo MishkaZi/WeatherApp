@@ -1,8 +1,10 @@
+import { CircularProgress } from '@mui/material';
 import axios from 'axios';
 import React, { useCallback, useEffect, useState } from 'react';
 import { FaBookmark, FaRegBookmark } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { addBookmarkAction, removeBookmarkAction } from '../../actions';
+import Message from '../../Message/Message';
 import BookmarksModel from '../../Models/BookmarksModel';
 import ForecastModel from '../../Models/ForecastModel';
 import { RootState } from '../../store';
@@ -31,6 +33,9 @@ const Forecast = () => {
   const [forecastsText, setForecastsText] = useState('');
   const [forecasts, setForecasts] = useState([]);
 
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+
   const [isBookmarked, setIsBookmarked] = useState(false);
   const checkIfBookmarked = useCallback(
     (key: string) => {
@@ -43,35 +48,40 @@ const Forecast = () => {
     [bookmarks]
   );
 
-  const handleCityChoise = useCallback(async () => {
+  const fetchCityData = useCallback(async () => {
     setIsBookmarked(false);
+    setLoading(true);
+    try {
+      const currentData = await axios.get(
+        `/currentconditions/v1/${detailedForecast.cityId}?apikey=${process.env.REACT_APP_ACCUWEATHER_API}`
+      );
 
-    const { data: currentData } = await axios.get(
-      `/currentconditions/v1/${detailedForecast.cityId}?apikey=${process.env.REACT_APP_ACCUWEATHER_API}`
-    );
+      setCurrentText(currentData.data[0].WeatherText);
+      setCityTemp(currentData.data[0].Temperature.Imperial.Value);
 
-    setCurrentText(currentData[0].WeatherText);
-    setCityTemp(currentData[0].Temperature.Imperial.Value);
+      const { data: forecastsData } = await axios.get(
+        `/forecasts/v1/daily/5day/${detailedForecast.cityId}?apikey=${process.env.REACT_APP_ACCUWEATHER_API}`
+      );
 
-    const { data: forecastsData } = await axios.get(
-      `/forecasts/v1/daily/5day/${detailedForecast.cityId}?apikey=${process.env.REACT_APP_ACCUWEATHER_API}`
-    );
+      setForecastsText(forecastsData.Headline.Text);
 
-    setForecastsText(forecastsData.Headline.Text);
-
-    let tempForecasts = [];
-    forecastsData.DailyForecasts.forEach((forecast: any) => {
-      tempForecasts.push({
-        day: forecast.Date.slice(0, 10),
-        minTemp: forecast.Temperature.Minimum.Value,
-        maxTemp: forecast.Temperature.Maximum.Value,
-        weatherDay: forecast.Day.IconPhrase,
-        weatherNight: forecast.Night.IconPhrase,
+      let tempForecasts = [];
+      forecastsData.DailyForecasts.forEach((forecast: any) => {
+        tempForecasts.push({
+          day: forecast.Date.slice(0, 10),
+          minTemp: forecast.Temperature.Minimum.Value,
+          maxTemp: forecast.Temperature.Maximum.Value,
+          weatherDay: forecast.Day.IconPhrase,
+          weatherNight: forecast.Night.IconPhrase,
+        });
       });
-    });
 
-    setForecasts(tempForecasts);
-    checkIfBookmarked(detailedForecast.cityId);
+      setLoading(false);
+      setForecasts(tempForecasts);
+      checkIfBookmarked(detailedForecast.cityId);
+    } catch (error) {
+      console.log(error);
+    }
   }, [checkIfBookmarked, detailedForecast.cityId]);
 
   const bookmark = () => {
@@ -93,31 +103,44 @@ const Forecast = () => {
 
   useEffect(() => {
     if (detailedForecast.cityId) {
-      handleCityChoise();
+      fetchCityData();
     }
-  }, [detailedForecast.cityId, handleCityChoise]);
+  }, [detailedForecast.cityId, fetchCityData]);
 
   return (
     <div className={`city-weather-${theme}`}>
-      <h2 className='upper-main'>
-        <div className='current-city'>
-          {detailedForecast.city}{' '}
-          {tempUnit === 'F' ? cityTemp : Math.floor(((cityTemp - 32) * 5) / 9)}
-          {tempUnit === 'F' ? ' F' : ' °C'}
-          <h3 style={{ width: '100%', textAlign: 'center' }}>{currentText}</h3>
-        </div>
-        <button type='button' onClick={bookmark}>
-          {isBookmarked === false ? (
-            <FaRegBookmark size='3rem' color='cornFlowerBlue' />
-          ) : (
-            <FaBookmark size='3rem' color='cornFlowerBlue' />
-          )}
-        </button>
-      </h2>
-      <h3 style={{ width: '100%', textAlign: 'center' }}>{forecastsText}</h3>
-      {forecasts.map((forecast: ForecastModel) => (
-        <ForecastCard key={forecast.day} forecast={forecast} />
-      ))}
+      {loading ? (
+        <CircularProgress />
+      ) : (
+        <>
+          <h2 className='upper-main'>
+            <div className='current-city'>
+              {detailedForecast.city}{' '}
+              {tempUnit === 'F'
+                ? cityTemp
+                : Math.floor(((cityTemp - 32) * 5) / 9)}
+              {tempUnit === 'F' ? ' F' : ' °C'}
+              <h3 style={{ width: '100%', textAlign: 'center' }}>
+                {currentText}
+              </h3>
+            </div>
+            <button type='button' onClick={bookmark}>
+              {isBookmarked === false ? (
+                <FaRegBookmark size='3rem' color='cornFlowerBlue' />
+              ) : (
+                <FaBookmark size='3rem' color='cornFlowerBlue' />
+              )}
+            </button>
+          </h2>
+
+          <h3 style={{ width: '100%', textAlign: 'center' }}>
+            {forecastsText}
+          </h3>
+          {forecasts.map((forecast: ForecastModel) => (
+            <ForecastCard key={forecast.day} forecast={forecast} />
+          ))}
+        </>
+      )}
     </div>
   );
 };

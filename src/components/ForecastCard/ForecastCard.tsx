@@ -24,7 +24,7 @@ const ForecastCard = ({ forecast }) => {
         {tempUnit === 'F'
           ? forecast.minTemp
           : Math.floor(((forecast.minTemp - 32) * 5) / 9)}
-        {tempUnit === 'F' ? ' F' : ' °C'} -{' '}
+        {tempUnit === 'F' ? ' F' : ' °C'} to{' '}
         {tempUnit === 'F'
           ? forecast.maxTemp
           : Math.ceil(((forecast.maxTemp - 32) * 5) / 9)}
