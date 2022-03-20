@@ -26,6 +26,7 @@ const Forecast = () => {
   const bookmarks = useSelector(
     (state: RootState) => state.bookmarks.bookmarks
   );
+
   const tempUnit = useSelector((state: RootState) => state.tempUnit.unit);
 
   const [cityTemp, setCityTemp] = useState(0);
