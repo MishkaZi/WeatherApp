@@ -4,7 +4,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { FaBookmark, FaRegBookmark } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { addBookmarkAction, removeBookmarkAction } from '../../actions';
-import Message from '../../Message/Message';
+import ErrorMessage from '../../Message/ErrorMessage';
 import BookmarksModel from '../../Models/BookmarksModel';
 import ForecastModel from '../../Models/ForecastModel';
 import { RootState } from '../../store';
@@ -81,7 +81,8 @@ const Forecast = () => {
       setForecasts(tempForecasts);
       checkIfBookmarked(detailedForecast.cityId);
     } catch (error) {
-      console.log(error);
+      setLoading(false);
+      setError(error);
     }
   }, [checkIfBookmarked, detailedForecast.cityId]);
 
@@ -110,7 +111,9 @@ const Forecast = () => {
 
   return (
     <div className={`city-weather-${theme}`}>
-      {loading ? (
+      {error ? (
+        <ErrorMessage error={error} />
+      ) : loading ? (
         <CircularProgress />
       ) : (
         <>

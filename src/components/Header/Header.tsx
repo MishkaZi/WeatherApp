@@ -44,7 +44,11 @@ const Header = () => {
       <div className='buttons'>
         <button type='button' onClick={lightDark}>
           {theme === 'light' ? (
-            <BsFillSunFill size='1.5rem' color='cornFlowerBlue' />
+            <BsFillSunFill
+              className='icon-buttons'
+              size='1.5rem'
+              color='cornFlowerBlue'
+            />
           ) : (
             <BsFillMoonFill size='1.5rem' color='cornFlowerBlue' />
           )}

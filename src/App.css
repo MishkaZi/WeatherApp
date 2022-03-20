@@ -27,3 +27,16 @@
     height: 180vh;
   }
 }
+
+button:hover {
+  transform: scale(1.25);
+}
+
+button:active {
+  transform: scale(0.8);
+}
+
+.icon-buttons:hover {
+  animation: beat 1s infinite;
+  color: #000000;
+}
