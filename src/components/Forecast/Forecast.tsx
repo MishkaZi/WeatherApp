@@ -56,14 +56,14 @@ const Forecast = () => {
     setLoading(true);
     try {
       const currentData = await axios.get(
-        `/currentconditions/v1/${detailedForecast.cityId}?apikey=${process.env.REACT_APP_ACCUWEATHER_API}`
+        `http://dataservice.accuweather.com/currentconditions/v1/${detailedForecast.cityId}?apikey=${process.env.REACT_APP_ACCUWEATHER_API}`
       );
 
       setCurrentText(currentData.data[0].WeatherText);
       setCityTemp(currentData.data[0].Temperature.Imperial.Value);
 
       const { data: forecastsData } = await axios.get(
-        `/forecasts/v1/daily/5day/${detailedForecast.cityId}?apikey=${process.env.REACT_APP_ACCUWEATHER_API}`
+        `http://dataservice.accuweather.com/forecasts/v1/daily/5day/${detailedForecast.cityId}?apikey=${process.env.REACT_APP_ACCUWEATHER_API}`
       );
 
       setForecastsText(forecastsData.Headline.Text);
