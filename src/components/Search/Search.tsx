@@ -18,7 +18,7 @@ const Search = () => {
     setSearch(target.value);
     try {
       const { data: autocompleteData } = await axios.get(
-        `/locations/v1/cities/autocomplete?apikey=${process.env.REACT_APP_ACCUWEATHER_API}&q=${target.value}`
+        `http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=${process.env.REACT_APP_ACCUWEATHER_API}&q=${target.value}`
       );
       setAutocompleteSearch(autocompleteData);
     } catch (error) {
