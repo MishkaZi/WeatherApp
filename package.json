@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "homepage": "https://MishkaZi.github.io/WeatherApp",
   "private": true,
-  "proxy": "http://dataservice.accuweather.com",
   "dependencies": {
     "@emotion/react": "^11.8.2",
     "@emotion/styled": "^11.8.1",
