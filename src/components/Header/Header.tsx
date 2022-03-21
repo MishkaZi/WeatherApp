@@ -60,12 +60,12 @@ const Header = () => {
             <RiFahrenheitFill size='1.5rem' color='cornFlowerBlue' />
           )}
         </button>
-        <Link to='/'>
+        <Link to='/WeatherApp'>
           <button type='button'>
             <AiFillHome size='2rem' color='cornFlowerBlue' />
           </button>
         </Link>
-        <Link to='/bookmarks'>
+        <Link to='/WeatherApp/bookmarks'>
           <button type='button'>
             {' '}
             <BsFillBookmarkHeartFill size='2rem' color='cornFlowerBlue' />

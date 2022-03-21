@@ -10,8 +10,8 @@ const Router = () => {
       <Header />
 
       <Routes>
-        <Route path='/' element={<Main />} />
-        <Route path='/bookmarks' element={<Bookmarks />} />
+        <Route path='/WeatherApp' element={<Main />} />
+        <Route path='/WeatherApp/bookmarks' element={<Bookmarks />} />
       </Routes>
     </BrowserRouter>
   );
