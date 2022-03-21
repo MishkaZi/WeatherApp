@@ -22,6 +22,7 @@ const Forecast = () => {
     localStorage.setItem('alt', location.coordinates.lat);
     localStorage.setItem('lng', location.coordinates.lng);
   }
+
   const theme = useSelector((state: RootState) => state.theme.theme);
   const detailedForecast = useSelector(
     (state: RootState) => state.detailedForecast.cityDetails
