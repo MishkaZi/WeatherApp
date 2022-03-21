@@ -27,7 +27,7 @@ const BookmarkCard = (bookmark: BookmarksModel) => {
   const openDetailedForecast = () => {
     dispatch(detailedForecastAction(bookmark.id, bookmark.city));
 
-    navigate('/');
+    navigate('/WeatherApp');
   };
 
   return (
