@@ -23,7 +23,7 @@ const App = () => {
 
     if (localStorage.getItem('lng')) {
       const { data } = await axios.get(
-        `http://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=${
+        `/locations/v1/cities/geoposition/search?apikey=${
           process.env.REACT_APP_ACCUWEATHER_API
         }&q=${localStorage.getItem('alt')},${localStorage.getItem('lng')}`
       );
