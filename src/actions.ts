@@ -1,5 +1,5 @@
 import BookmarksModel from "./Models/BookmarksModel"
-import { ADD_BOOKMARK, CHANGE_UNIT, DETAILED_FORECAST, GET_BOOKMARKS, REMOVE_BOOKMARK, THEME } from './Constants'
+import { ADD_BOOKMARK, CHANGE_UNIT, DETAILED_FORECAST, ERROR, GET_BOOKMARKS, REMOVE_BOOKMARK, THEME } from './Constants'
 
 export type ChangeUnitAction = { type: string, payload: string }
 
@@ -57,5 +57,13 @@ export type ThemeAction = { type: string, payload: string }
 export const themeAction = (theme: string): ThemeAction => {
     return {
         type: THEME, payload: theme
+    }
+}
+
+export type ErrorAction = { type: string, payload: string }
+
+export const errorAction = (error: string): ErrorAction => {
+    return {
+        type: ERROR, payload: error
     }
 }

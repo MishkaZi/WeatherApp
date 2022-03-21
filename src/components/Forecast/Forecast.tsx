@@ -3,8 +3,11 @@ import axios from 'axios';
 import React, { useCallback, useEffect, useState } from 'react';
 import { FaBookmark, FaRegBookmark } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
-import { addBookmarkAction, removeBookmarkAction } from '../../actions';
-import ErrorMessage from '../../Message/ErrorMessage';
+import {
+  addBookmarkAction,
+  errorAction,
+  removeBookmarkAction,
+} from '../../actions';
 import BookmarksModel from '../../Models/BookmarksModel';
 import ForecastModel from '../../Models/ForecastModel';
 import { RootState } from '../../store';
@@ -35,7 +38,6 @@ const Forecast = () => {
   const [forecasts, setForecasts] = useState([]);
 
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
 
   const [isBookmarked, setIsBookmarked] = useState(false);
   const checkIfBookmarked = useCallback(
@@ -82,9 +84,9 @@ const Forecast = () => {
       checkIfBookmarked(detailedForecast.cityId);
     } catch (error) {
       setLoading(false);
-      setError(error);
+      dispatch(errorAction(`${error.message} (${error.request.statusText})`));
     }
-  }, [checkIfBookmarked, detailedForecast.cityId]);
+  }, [checkIfBookmarked, detailedForecast.cityId, dispatch]);
 
   const bookmark = () => {
     const bookmark: BookmarksModel = {
@@ -111,9 +113,7 @@ const Forecast = () => {
 
   return (
     <div className={`city-weather-${theme}`}>
-      {error ? (
-        <ErrorMessage error={error} />
-      ) : loading ? (
+      {loading ? (
         <CircularProgress />
       ) : (
         <>

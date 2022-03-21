@@ -1,12 +1,13 @@
 import { createStore, combineReducers } from 'redux';
-import { bookmarksReducer, detailedForecastReducer, tempUnitReducer, themeReducer } from './reducers';
+import { bookmarksReducer, detailedForecastReducer, errorReducer, tempUnitReducer, themeReducer } from './reducers';
 
 
 const allReducers = combineReducers({
     tempUnit: tempUnitReducer,
     bookmarks: bookmarksReducer,
     detailedForecast: detailedForecastReducer,
-    theme: themeReducer
+    theme: themeReducer,
+    error: errorReducer
 });
 
 

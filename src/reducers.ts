@@ -1,5 +1,5 @@
-import { BookmarksAction, ChangeUnitAction, DetailedForecastAction, ThemeAction } from './actions'
-import { ADD_BOOKMARK, CHANGE_UNIT, DETAILED_FORECAST, GET_BOOKMARKS, REMOVE_BOOKMARK, THEME } from './Constants'
+import { BookmarksAction, ChangeUnitAction, DetailedForecastAction, ErrorAction, ThemeAction } from './actions'
+import { ADD_BOOKMARK, CHANGE_UNIT, DETAILED_FORECAST, ERROR, GET_BOOKMARKS, REMOVE_BOOKMARK, THEME } from './Constants'
 import BookmarksModel from './Models/BookmarksModel'
 
 export interface TempUnitState {
@@ -51,6 +51,19 @@ export const themeReducer = (state: ThemeState = { theme: 'light' }, action: The
     switch (action.type) {
         case THEME:
             return { ...state, theme: action.payload }
+
+        default:
+            return state
+    }
+}
+
+export interface ErrorState {
+    error: string
+}
+export const errorReducer = (state: ErrorState = { error: '' }, action: ErrorAction) => {
+    switch (action.type) {
+        case ERROR:
+            return { ...state, error: action.payload }
 
         default:
             return state

@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { SyntheticEvent, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
-import { detailedForecastAction } from '../../actions';
+import { detailedForecastAction, errorAction } from '../../actions';
 import './Search.css';
 
 const Search = () => {
@@ -16,12 +16,14 @@ const Search = () => {
     const target = e.target as HTMLInputElement;
 
     setSearch(target.value);
-
-    const { data: autocompleteData } = await axios.get(
-      `/locations/v1/cities/autocomplete?apikey=${process.env.REACT_APP_ACCUWEATHER_API}&q=${target.value}`
-    );
-
-    setAutocompleteSearch(autocompleteData);
+    try {
+      const { data: autocompleteData } = await axios.get(
+        `/locations/v1/cities/autocomplete?apikey=${process.env.REACT_APP_ACCUWEATHER_API}&q=${target.value}`
+      );
+      setAutocompleteSearch(autocompleteData);
+    } catch (error) {
+      dispatch(errorAction(`${error.message} (${error.request.statusText})`));
+    }
   };
 
   return (
