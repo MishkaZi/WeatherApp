@@ -3,7 +3,6 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  max-width: 70rem;
   background-color: #ffff;
   border-radius: 1em;
   padding: 1rem;
@@ -18,7 +17,6 @@
   flex-wrap: wrap;
   justify-content: center;
   color: #d9dddc;
-  max-width: 70rem;
   background-color: #2e5582;
   border-radius: 1em;
   padding: 1rem;

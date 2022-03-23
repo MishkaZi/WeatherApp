@@ -11,7 +11,7 @@ const Bookmarks = () => {
   );
 
   return (
-    <>
+    <div className='main'>
       {bookmarks.length > 0 ? (
         <div className='bookmarks'>
           {bookmarks.map((bm) => (
@@ -23,7 +23,7 @@ const Bookmarks = () => {
       ) : (
         <h2 style={{ textAlign: 'center' }}>There is no saved bookmarks</h2>
       )}
-    </>
+    </div>
   );
 };
 
