@@ -8,15 +8,20 @@ import { RootState } from '../../store';
 const Main = () => {
   const error = useSelector((state: RootState) => state.error.error);
 
-  return error ? (
-    <div className='error'>
-      There was a problem with Accuweather API, please wait for a fix: {error}
+  return (
+    <div className='main'>
+      {error ? (
+        <div className='error'>
+          There was a problem with Accuweather API, please wait for a fix:{' '}
+          {error}
+        </div>
+      ) : (
+        <>
+          <Search />
+          <Forecast />
+        </>
+      )}
     </div>
-  ) : (
-    <>
-      <Search />
-      <Forecast />
-    </>
   );
 };
 
